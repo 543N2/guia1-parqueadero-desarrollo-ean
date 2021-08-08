@@ -318,20 +318,42 @@ public class Parqueadero {
 
     /**
      * Método de extensión 1.
-     *
-     * @return Respuesta 1.
+     * El metodo determina que carro lleva mas tiempo en el parqueadero e imprime
+     * su placa.
+     * @return placaCarroMasTiempo.
      */
     public String metodo1() {
-        return "respuesta 1";
+        int maxTiempo = 0;
+        String placaCarroMasTiempo= "";
+        for (Puesto puesto : puestos) {
+            Carro carro = puesto.darCarro();
+            if (carro != null) {
+                int tiempoEnParqueadero = carro.darTiempoEnParqueadero(horaActual);
+                if(tiempoEnParqueadero > maxTiempo) {
+                    maxTiempo = tiempoEnParqueadero;
+                    placaCarroMasTiempo = carro.darPlaca();
+                }
+            }
+        }
+        return placaCarroMasTiempo;
     }
 
     /**
      * Método de extensión 2.
-     *
-     * @return Respuesta 2.
+     * El metodo solicita la cantidad de puestos libres e informa si hay cupo o si esta lleno.
+     * @return estadoParqueadero.
      */
     public String metodo2() {
-        return "respuesta 2";
+        String estadoParqueadero;
+        int puestosLibres = calcularPuestosLibres();
+        if(puestosLibres == 0) {
+            estadoParqueadero = "El parqueadero esta lleno";
+        }
+        else {
+            estadoParqueadero = "Hay puestos disponibles";
+        }
+
+        return estadoParqueadero;
     }
 
 }
